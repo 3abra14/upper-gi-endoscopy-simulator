@@ -1,0 +1,323 @@
+:root {
+  --neon-blue: #00f2ff;
+  --neon-red: #ff3366;
+  --glass-bg: rgba(10, 15, 20, 0.7);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --clinical-black: #050505;
+}
+
+body, html, #root {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: var(--clinical-black);
+  font-family: 'Inter', -apple-system, sans-serif;
+  color: white;
+}
+
+.simulation-container {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  background: radial-gradient(circle at center, #101010 0%, #000 100%);
+}
+
+/* UI Overlay */
+.ui-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  padding: 24px;
+  box-sizing: border-box;
+  z-index: 10;
+}
+
+/* Glass Panels */
+.glass-panel {
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+.telemetry-card {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-width: 180px;
+}
+
+.telemetry-card.clickable {
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: 1px solid rgba(0, 242, 255, 0.1);
+}
+
+.telemetry-card.clickable:hover {
+  background: rgba(0, 242, 255, 0.05);
+  transform: translateX(-5px);
+  border-color: rgba(0, 242, 255, 0.3);
+}
+
+.telemetry-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.text-cyan { color: #00f2ff; text-shadow: 0 0 10px rgba(0, 242, 255, 0.5); }
+.text-red { color: #ff3366; text-shadow: 0 0 10px rgba(255, 51, 102, 0.5); }
+
+/* Header Bar */
+.header-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.brand-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.brand-text .main {
+  font-weight: 800;
+  letter-spacing: 2px;
+  font-size: 1.2rem;
+  color: var(--neon-blue);
+  text-shadow: 0 0 10px rgba(0, 242, 255, 0.5);
+}
+
+.brand-text .sub {
+  font-size: 0.6rem;
+  opacity: 0.6;
+  letter-spacing: 1px;
+}
+
+.landmark-indicator {
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  font-size: 0.9rem;
+}
+
+.text-glow {
+  text-shadow: 0 0 8px var(--neon-blue);
+}
+
+/* Sidebar Vitals */
+.vitals-sidebar {
+  position: absolute;
+  left: 24px;
+  top: 100px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.vital-card {
+  padding: 16px;
+  min-width: 180px;
+}
+
+.vital-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.vital-header .label {
+  font-size: 0.7rem;
+  opacity: 0.8;
+  letter-spacing: 1px;
+}
+
+.vital-value {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+}
+
+.vital-value .num {
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.vital-value .unit {
+  font-size: 0.8rem;
+  opacity: 0.6;
+}
+
+.vital-graph-container {
+  height: 30px;
+  margin-top: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 4px;
+  overflow: hidden;
+  position: relative;
+}
+
+.vital-graph {
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(90deg, transparent 0%, rgba(0, 242, 255, 0.2) 50%, transparent 100%);
+  animation: sweep 2s infinite linear;
+}
+
+@keyframes sweep {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(100%); }
+}
+
+.hr-graph { background: linear-gradient(90deg, transparent 0%, rgba(255, 51, 102, 0.2) 50%, transparent 100%); }
+
+/* Bottom UI */
+.bottom-ui {
+  margin-top: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.steering-hud {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.steering-display .crosshair {
+  width: 100px;
+  height: 100px;
+  border: 1px solid rgba(0, 242, 255, 0.3);
+  border-radius: 50%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.steering-display .crosshair::before,
+.steering-display .crosshair::after {
+  content: '';
+  position: absolute;
+  background: rgba(0, 242, 255, 0.2);
+}
+
+.steering-display .crosshair::before { width: 100%; height: 1px; }
+.steering-display .crosshair::after { width: 1px; height: 100%; }
+
+.steering-display .dot {
+  width: 8px;
+  height: 8px;
+  background: var(--neon-blue);
+  border-radius: 50%;
+  box-shadow: 0 0 10px var(--neon-blue);
+  transition: transform 0.1s ease-out;
+}
+
+.status-meters {
+  padding: 20px;
+  min-width: 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.meter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.meter-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  letter-spacing: 1px;
+}
+
+.meter-bar {
+  height: 6px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.meter-bar .fill {
+  height: 100%;
+  background: var(--neon-blue);
+  box-shadow: 0 0 10px var(--neon-blue);
+  transition: width 0.3s ease-out;
+}
+
+.meter-bar .air-fill {
+  background: #fff;
+  box-shadow: 0 0 10px #fff;
+}
+
+/* Clinical Frame */
+.endoscope-frame {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  box-shadow: inset 0 0 200px rgba(0,0,0,0.8);
+}
+
+.vignette-circle {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, transparent 60%, rgba(0,0,0,0.9) 100%);
+}
+
+.control-hints {
+  position: absolute;
+  right: 24px;
+  top: 100px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 0.7rem;
+  opacity: 0.5;
+}
+
+.hint span {
+  color: var(--neon-blue);
+  font-weight: bold;
+}
+
+.pulse-slow {
+  animation: pulse 3s infinite ease-in-out;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(0.95); }
+}
